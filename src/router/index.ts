@@ -12,6 +12,7 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/',
         name: 'dashboard',
+        redirect:'/home',
         component: () => import(/* webpackChunkName: "introduce" */ '../Layout/index.vue'),
         children: [
             // { path: '/', redirect: '/login' },

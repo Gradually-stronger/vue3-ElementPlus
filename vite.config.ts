@@ -15,21 +15,21 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()],
     }),
   ],
-  base:"./",//打包路径
-  // resolve: {
-  //   alias:{
-  //     '@': path.resolve(__dirname, './src')//设置别名
-  //   }
-  // },
+  base: "./",//打包路径
+  resolve: {
+    alias: {
+      '@': '/src/'   //设置别名
+    }
+  },
   server: {
-    port:8989,//启动端口
+    port: 8989,//启动端口
     open: true,
     proxy: {
       // 选项写法
       '/api': 'http://39.99.234.158:8989'//代理网址
     },
-    cors:true,
-   
+    cors: true,
+
   },
   esbuild: {
     jsxFactory: 'h',
