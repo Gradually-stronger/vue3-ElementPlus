@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ElLoading, ElNotification } from "element-plus";
+import { ElNotification } from "element-plus";
 import { AxiosRequestConfig, Method } from "axios";
 
 
