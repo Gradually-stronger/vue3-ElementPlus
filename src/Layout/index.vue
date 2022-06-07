@@ -9,7 +9,9 @@
       <el-main>
         <router-view />
       </el-main>
-      <el-footer>Footer</el-footer>
+      <el-footer>
+        <div class="record">备案号: 鲁ICP备2020034460号-2</div>
+      </el-footer>
     </el-container>
   </div>
 </template>
@@ -36,10 +38,20 @@ export default defineComponent({
   .el-container {
     height: 100vh;
     .el-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .el-footer {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      .record {
+        text-align: center;
+        font-size: 10px;
+        margin-bottom: 10px;
+      }
+    }
   }
 }
 </style>
