@@ -35,6 +35,9 @@ export default defineComponent({
 
 <style lang="less">
 .common-layout {
+  a {
+    text-decoration: none;
+  }
   .el-container {
     height: 100vh;
     .el-header {
