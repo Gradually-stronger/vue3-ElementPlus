@@ -63,6 +63,7 @@ export default defineComponent({
       .logo {
         margin-top: 10px;
         width: 60px;
+        min-width: 20px;
         border-radius: 10%;
       }
 

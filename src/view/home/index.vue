@@ -1,6 +1,6 @@
 <template>
-  <div>
-    1adsfasdfa23
+  <div class="container">
+    
      
   </div>
 </template>
@@ -9,7 +9,6 @@
 import { defineComponent,  } from "vue";
 
 
-// const isDark = useDark()
 export default defineComponent({
   name: "home",
   setup() {
@@ -19,3 +18,9 @@ export default defineComponent({
   },
 });
 </script>
+<style scoped lang="less">
+  .container {
+    width: 62.5%;
+    margin: 0 auto;
+  }
+</style>

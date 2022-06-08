@@ -1,5 +1,5 @@
 <template>
-  <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" :ellipsis="false">
+  <el-menu :default-active="activeIndex" class="" mode="horizontal" :ellipsis="false">
     <el-menu-item index="1">
       <router-link to="/home">Home</router-link>
     </el-menu-item>
@@ -29,3 +29,11 @@ export default defineComponent({
   },
 });
 </script>
+<style lang="less" scoped>
+  .el-menu {
+    border: none;
+    .el-menu-item {
+      border: none;
+    }
+  }
+</style>>
