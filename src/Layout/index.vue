@@ -1,6 +1,7 @@
 <template>
   <div class="common-layout">
     <el-container>
+      <el-backtop :right="100" :bottom="100" />
       <el-header>
         <el-image class="logo" :preview-src-list="['/image/logo.webp']" alt="要努力、要加油！" src="/image/logo.webp">
         </el-image>
@@ -52,7 +53,8 @@ export default defineComponent({
   }
 
   .el-container {
-    height: 100vh;
+    height: 100%;
+    min-height: 864px;
 
     .el-header {
       display: flex;
@@ -76,6 +78,10 @@ export default defineComponent({
           cursor: pointer;
         }
       }
+    }
+
+    .el-main {
+      height: 100%;
     }
 
     .el-footer {
