@@ -68,7 +68,7 @@ export default defineComponent({
 
 <style lang="less">
 .backgorund {
-  background-image: url('/login_background.jpg');
+  background-image: url('/image/login/login_background.jpg');
   width: 100%;
   min-height: 100vh;
   height: 100%;

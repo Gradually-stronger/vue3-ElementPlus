@@ -1,5 +1,5 @@
 <template>
-  <div @click="toggleDark()">
+  <div @click="toggleDark()" style="cursor: pointer;">
     <span class="iconfont icon-yueliang" v-if="isDark"></span>
     <span class="iconfont icon-taiyang-copy" style="color: #000" v-else></span>
   </div>
