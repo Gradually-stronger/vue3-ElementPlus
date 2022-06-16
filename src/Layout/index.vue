@@ -3,12 +3,19 @@
     <el-container>
       <el-backtop :right="100" :bottom="100" />
       <el-header>
-        <el-image class="logo" :preview-src-list="['/image/logo.webp']" alt="要努力、要加油！" src="/image/logo.webp">
+        <el-image
+          class="logo"
+          :preview-src-list="['/image/logo.webp']"
+          alt="要努力、要加油！"
+          src="/image/logo.webp"
+        >
         </el-image>
         <Menu />
         <div class="right">
           <Partten />
-          <el-button type="primary" @click="handleLoginout" class="loginout"> 退出登录 </el-button>
+          <el-button type="primary" class="loginout" @click="handleLoginout">
+            退出登录
+          </el-button>
         </div>
       </el-header>
       <el-main>
@@ -22,13 +29,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import Menu from "./Menu/index.vue";
-import Partten from "../components/partten.vue";
-import { useRouter } from "vue-router";
+import { defineComponent } from 'vue';
+import Menu from './Menu/index.vue';
+import Partten from '../components/partten.vue';
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
-  name: "Layout",
+  name: 'Layout',
   components: {
     Menu,
     Partten,
@@ -37,7 +44,7 @@ export default defineComponent({
     const router = useRouter();
     const handleLoginout = () => {
       localStorage.clear();
-      router.replace("/login");
+      router.replace('/login');
     };
     return {
       handleLoginout,

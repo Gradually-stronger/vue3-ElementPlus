@@ -1,10 +1,4 @@
-import {
-  reactive,
-  ref,
-  onUnmounted,
-  computed,
-  onMounted,
-} from 'vue';
+import { reactive, ref, onUnmounted, computed, onMounted } from 'vue';
 import { ElMessage } from 'element-plus';
 import { formData } from '../../interpreter/login';
 import { useRouter } from 'vue-router';
@@ -32,9 +26,13 @@ export function formValidation() {
   });
 
   onUnmounted(() => {
-    window.removeEventListener('keydown', () => {
-      console.log('清除按键事件监听');
-    }, true);
+    window.removeEventListener(
+      'keydown',
+      () => {
+        console.log('清除按键事件监听');
+      },
+      true,
+    );
   });
   const logins = (): void => {
     form.value.validate((valid: any) => {

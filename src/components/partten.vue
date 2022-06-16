@@ -1,13 +1,13 @@
 <template>
-  <div @click="toggleDark()" style="cursor: pointer;">
-    <span class="iconfont icon-yueliang" v-if="isDark"></span>
-    <span class="iconfont icon-taiyang-copy" style="color: #000" v-else></span>
+  <div style="cursor: pointer" @click="toggleDark()">
+    <span v-if="isDark" class="iconfont icon-yueliang"></span>
+    <span v-else class="iconfont icon-taiyang-copy" style="color: #000"></span>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { toggleDark, isDark } from "@/until/modes";
+import { defineComponent } from 'vue';
+import { toggleDark, isDark } from '@/until/modes';
 
 export default defineComponent({
   setup() {

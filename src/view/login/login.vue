@@ -2,7 +2,7 @@
   <div class="backgorund">
     <div class="card" shadow="never">
       <div class="title">Welcome To WebSite</div>
-      <el-form class="form" :model="formData" ref="form" :rules="loginRules">
+      <el-form ref="form" class="form" :model="formData" :rules="loginRules">
         <el-form-item prop="account">
           <el-input
             v-model="formData.account"
@@ -29,15 +29,19 @@
         </el-form-item>
 
         <el-form-item>
-          <el-button style="width: 100%" type="primary" @click="logins"
-            >登陆</el-button
-          >
+          <el-button style="width: 100%" type="primary" @click="logins">
+            登陆
+          </el-button>
         </el-form-item>
 
         <el-form-item>
-          <el-button @click="register" type="text" style="margin: auto; width: 100%;color:#ccc"
-            >忘记密码？</el-button
+          <el-button
+            type="text"
+            style="margin: auto; width: 100%; color: #ccc"
+            @click="register"
           >
+            忘记密码？
+          </el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -47,10 +51,7 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  toRefs,
-} from 'vue';
+import { defineComponent, toRefs } from 'vue';
 import particle from '../../components/particles.vue';
 import { formValidation } from './form';
 export default defineComponent({
@@ -60,7 +61,7 @@ export default defineComponent({
   },
   setup() {
     return {
-      ...toRefs(formValidation())
+      ...toRefs(formValidation()),
     };
   },
 });

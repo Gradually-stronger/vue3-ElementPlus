@@ -1,18 +1,15 @@
-import { h, defineComponent, ref, onMounted } from 'vue';
+import { defineComponent, ref,  } from 'vue';
 // 获取dom节点
 export default defineComponent({
-  name: 'test',
+  name: 'Test',
   setup() {
-    const demo = () => {};
     const refs: any = ref();
-    onMounted(() => {
-    });
     return {
-        refs
-    }
+      refs,
+    };
   },
   render() {
-    console.log(this.refs)
+    console.log(this.refs);
     return <p ref="refs">123</p>;
   },
 });

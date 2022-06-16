@@ -2,13 +2,17 @@ import axios from 'axios';
 import { ElNotification } from 'element-plus';
 import { AxiosRequestConfig, Method } from 'axios';
 
+interface Paramter {
+  [props: string]: string | boolean | number | object | undefined | null;
+}
+
 // 定义接口
 interface PendingType {
   url?: string;
   method?: Method;
-  params: any;
-  data: any;
-  cancel: (e: any) => void;
+  params: Paramter;
+  data: Paramter;
+  cancel: (context: string) => void;
 }
 
 const pending: Array<PendingType> = [];
@@ -84,20 +88,20 @@ request.interceptors.response.use(
 
     // 根据返回的http状态码做不同的处理
     switch (response?.status) {
-      case 401:
-        // token失效
-        break;
-      case 403:
-        // 没有权限
-        break;
-      case 500:
-        // 服务端错误
-        break;
-      case 503:
-        // 服务端错误
-        break;
-      default:
-        break;
+    case 401:
+      // token失效
+      break;
+    case 403:
+      // 没有权限
+      break;
+    case 500:
+      // 服务端错误
+      break;
+    case 503:
+      // 服务端错误
+      break;
+    default:
+      break;
     }
 
     // 超时重新请求
