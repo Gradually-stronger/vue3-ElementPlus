@@ -32,7 +32,8 @@ export default defineComponent({
     height: 100px;
     font-size: 14px;
     text-indent: 20px;
-    color: rgb(255, 255, 255);
+    // color: rgb(255, 255, 255);
+    color:  --el-color-dark-context;
     box-shadow: -1px 2px 10px rgb(34, 178, 92);
     background: linear-gradient(90deg,
         rgb(66, 111, 183),

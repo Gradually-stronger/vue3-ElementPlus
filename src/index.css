@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   height: 100%;
+  --el-color-dark-context:rgb(0,0,0);
 }
 
 body {
@@ -11,4 +12,7 @@ body {
 
 p {
   margin: 0;
+}
+html.dark {
+  --el-color-dark-context:rgb(255,255,255);
 }

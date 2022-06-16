@@ -1,7 +1,19 @@
 <template>
   <div class="common-layout">
     <el-container>
-      <el-backtop :right="100" :bottom="100" />
+      <el-backtop :right="200" :bottom="100">
+        <!-- <div style="
+        height: 100%;
+        width: 100%;
+        background-color: #ffffff;
+        box-shadow: 0px 0px 6px rgba(0, 0, 0, .12);
+        text-align: center;
+        line-height: 40px;
+        color: #1989fa;
+      ">
+          Up
+        </div> -->
+      </el-backtop>
       <el-header>
         <div class="header">
           <div class="header-left">
@@ -21,7 +33,7 @@
         <router-view />
       </el-main>
       <el-footer>
-        <div class="record">© 2022 Learn Frontend. All rights reserved.  备案号: 鲁ICP备2020034460号-2</div>
+        <div class="record">© 2022 Learn Frontend. All rights reserved. 备案号: 鲁ICP备2020034460号-2</div>
       </el-footer>
     </el-container>
   </div>
@@ -43,7 +55,7 @@ export default defineComponent({
     const router = useRouter();
     const handleLoginout = () => {
       localStorage.clear();
-      router.replace('/login');
+      router.replace('/');
     };
     return {
       handleLoginout,
@@ -70,7 +82,7 @@ export default defineComponent({
         display: flex;
         align-items: center;
         justify-content: space-between;
-        width:62.5%;
+        width: 62.5%;
         margin: 0 auto;
 
         &-left {
@@ -109,6 +121,7 @@ export default defineComponent({
       align-items: center;
       justify-content: center;
       border-top: 1px solid #eaeaea;
+
       .record {
         text-align: center;
         font-size: 10px;

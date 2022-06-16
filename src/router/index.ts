@@ -3,7 +3,7 @@ import Test from '../components/test';
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/login',
+    path: '/',
     name: 'login',
     component: () =>
       import(/* webpackChunkName: "introduce" */ '../view/login/login.vue'),
