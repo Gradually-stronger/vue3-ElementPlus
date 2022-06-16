@@ -1,20 +1,17 @@
 export interface State {
-    loginStatus: boolean
+  loginStatus: boolean;
 }
 
 export default {
-    namespaced: true,
-    state: () => <State>(
-        {
-            loginStatus: false
-        }
-    ),
-    actions: {
-
+  namespaced: true,
+  state: () =>
+    <State>{
+      loginStatus: false,
     },
-    mutations: {
-        remeberMe(state: State, {loginStatus}: {loginStatus:boolean}) {
-            state.loginStatus = loginStatus;
-        }
-    }
-}
+  actions: {},
+  mutations: {
+    remeberMe(state: State, { loginStatus }: { loginStatus: boolean }) {
+      state.loginStatus = loginStatus;
+    },
+  },
+};

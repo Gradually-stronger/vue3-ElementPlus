@@ -1,8 +1,8 @@
-import { useDark } from "@vueuse/core";
-import { useToggle } from "@vueuse/shared";
+import { useDark } from '@vueuse/core';
+import { useToggle } from '@vueuse/shared';
 
 export const isDark = useDark({
-    storageKey: "vue-theme-appearance",
+  storageKey: 'vue-theme-appearance',
 });
 
 export const toggleDark = useToggle(isDark);

@@ -1,27 +1,15 @@
-import login from "./login/index";
-import { createStore  } from 'vuex';
-import Layout from './Layout/index'
+import login from './login/index';
+import { createStore } from 'vuex';
+import Layout from './Layout/index';
 
+export const store = createStore({
+  state: () => ({}),
+  getters: {},
+  actions: {},
+  mutations: {},
 
-
-
-
-export  const store= createStore({
-    state:()=>({
-    }),
-    getters: {
-
-    },
-    actions: {
-      
-    },
-    mutations: {
-       
-    },
-
-    modules:{
-       ...login,
-        Layout
-    },
-
-})
+  modules: {
+    ...login,
+    Layout,
+  },
+});

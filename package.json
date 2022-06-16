@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "format": "prettier --write \"src/**/*.ts\" ",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
   },
   "husky": {
     "hooks": {

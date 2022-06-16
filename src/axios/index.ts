@@ -1,7 +1,6 @@
-import axios from "axios";
-import { ElNotification } from "element-plus";
-import { AxiosRequestConfig, Method } from "axios";
-
+import axios from 'axios';
+import { ElNotification } from 'element-plus';
+import { AxiosRequestConfig, Method } from 'axios';
 
 // 定义接口
 interface PendingType {
@@ -9,7 +8,7 @@ interface PendingType {
   method?: Method;
   params: any;
   data: any;
-  cancel: (e: any)=>void;
+  cancel: (e: any) => void;
 }
 
 const pending: Array<PendingType> = [];
@@ -46,7 +45,7 @@ const removePending = (config: AxiosRequestConfig) => {
       JSON.stringify(list.data) === JSON.stringify(config.data)
     ) {
       // 执行取消操作
-      list.cancel("操作太频繁，请稍后再试");
+      list.cancel('操作太频繁，请稍后再试');
       // 从数组中移除记录
       pending.splice(item, 1);
     }
@@ -56,13 +55,13 @@ const removePending = (config: AxiosRequestConfig) => {
 request.interceptors.request.use(
   (config) => {
     console.log(request);
-   
+
     removePending(config);
     return config;
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 
 request.interceptors.response.use(
@@ -74,9 +73,9 @@ request.interceptors.response.use(
     }
     if (status >= 500) {
       ElNotification({
-        type: "error",
-        message: "服务器发生错误",
-        position: "top-right",
+        type: 'error',
+        message: '服务器发生错误',
+        position: 'top-right',
       });
     }
   },
@@ -85,20 +84,20 @@ request.interceptors.response.use(
 
     // 根据返回的http状态码做不同的处理
     switch (response?.status) {
-    case 401:
-      // token失效
-      break;
-    case 403:
-      // 没有权限
-      break;
-    case 500:
-      // 服务端错误
-      break;
-    case 503:
-      // 服务端错误
-      break;
-    default:
-      break;
+      case 401:
+        // token失效
+        break;
+      case 403:
+        // 没有权限
+        break;
+      case 500:
+        // 服务端错误
+        break;
+      case 503:
+        // 服务端错误
+        break;
+      default:
+        break;
     }
 
     // 超时重新请求
@@ -118,7 +117,7 @@ request.interceptors.response.use(
       // 创造新的Promise来处理指数后退
       const backoff = new Promise((resolve) => {
         setTimeout(() => {
-          resolve("");
+          resolve('');
         }, RETRY_DELAY || 1);
       });
       // instance重试请求的Promise
@@ -129,7 +128,7 @@ request.interceptors.response.use(
 
     // eslint-disable-next-line
     return Promise.reject(response || { message: error.message });
-  }
+  },
 );
 
 export default request;

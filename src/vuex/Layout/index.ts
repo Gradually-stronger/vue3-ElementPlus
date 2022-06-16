@@ -1,16 +1,13 @@
 interface State {
-    titleShow :boolean
+  titleShow: boolean;
 }
 
 export default {
-    namespaced:true,
-    state:()=><State>({
-        titleShow:false
-    }),
-    mutations:{
-
+  namespaced: true,
+  state: () =>
+    <State>{
+      titleShow: false,
     },
-    actions:{
-
-    }
-}
+  mutations: {},
+  actions: {},
+};

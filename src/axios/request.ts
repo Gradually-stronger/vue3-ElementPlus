@@ -1,3 +1,3 @@
-import request from './index'
+import request from './index';
 
-console.log(request)
+console.log(request);
