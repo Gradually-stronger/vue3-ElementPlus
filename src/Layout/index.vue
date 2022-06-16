@@ -3,26 +3,25 @@
     <el-container>
       <el-backtop :right="100" :bottom="100" />
       <el-header>
-        <el-image
-          class="logo"
-          :preview-src-list="['/image/logo.webp']"
-          alt="要努力、要加油！"
-          src="/image/logo.webp"
-        >
-        </el-image>
-        <Menu />
-        <div class="right">
-          <Partten />
-          <el-button type="primary" class="loginout" @click="handleLoginout">
-            退出登录
-          </el-button>
+        <div class="header">
+          <div class="header-left">
+            <el-image class="logo" :preview-src-list="['/image/logo.webp']" alt="要努力、要加油！" src="/image/logo.webp">
+            </el-image>
+            <Menu />
+          </div>
+          <div class="right">
+            <Partten />
+            <el-button type="primary" class="loginout" @click="handleLoginout">
+              退出登录
+            </el-button>
+          </div>
         </div>
       </el-header>
       <el-main>
         <router-view />
       </el-main>
       <el-footer>
-        <div class="record">备案号: 鲁ICP备2020034460号-2</div>
+        <div class="record">© 2022 Learn Frontend. All rights reserved.  备案号: 鲁ICP备2020034460号-2</div>
       </el-footer>
     </el-container>
   </div>
@@ -64,27 +63,41 @@ export default defineComponent({
     min-height: 864px;
 
     .el-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
       height: 80px;
+      border-bottom: 1px solid #eaeaea;
 
-      .logo {
-        margin-top: 10px;
-        width: 60px;
-        min-width: 20px;
-        border-radius: 10%;
-      }
-
-      .right {
+      .header {
         display: flex;
         align-items: center;
+        justify-content: space-between;
+        width:62.5%;
+        margin: 0 auto;
 
-        .loginout {
-          margin-left: 10px;
-          cursor: pointer;
+        &-left {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          .logo {
+            margin-top: 10px;
+            width: 60px;
+            min-width: 20px;
+            border-radius: 10%;
+            margin-right: 40px;
+          }
+        }
+
+        .right {
+          display: flex;
+          align-items: center;
+
+          .loginout {
+            margin-left: 10px;
+            cursor: pointer;
+          }
         }
       }
+
     }
 
     .el-main {
@@ -93,13 +106,12 @@ export default defineComponent({
 
     .el-footer {
       display: flex;
-      align-items: flex-end;
+      align-items: center;
       justify-content: center;
-
+      border-top: 1px solid #eaeaea;
       .record {
         text-align: center;
         font-size: 10px;
-        margin-bottom: 10px;
       }
     }
   }
