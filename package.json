@@ -6,8 +6,9 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "format": "prettier --write \"src/**/*.ts\" ",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
+    "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "precommit": "lint-staged"
   },
   "husky": {
     "hooks": {
