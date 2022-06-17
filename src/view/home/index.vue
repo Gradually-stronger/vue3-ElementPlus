@@ -1,7 +1,7 @@
 <template>
   <div class="containers">
     <el-backtop target=".containers"></el-backtop>
-    <ul class="menu">
+    <ul class="menu" v-show="isMenu">
       <li>WorkSpace</li>
       <li>Life</li>
       <li>Q&A</li>
@@ -18,11 +18,30 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, onMounted, toRef, reactive, ref } from 'vue';
 
 export default defineComponent({
   setup() {
-    return {};
+    let isMenu = ref(false);
+
+    onMounted(() => {
+
+      window.addEventListener('scroll', () => {
+        if (!isMenu.value) {
+          isMenu.value = true;
+        }
+        
+        if(window.scrollY===0&&isMenu.value){
+          isMenu.value = false;
+        }
+      });
+
+    })
+          console.log(isMenu.value);
+
+    return {
+      isMenu
+    };
   },
 });
 </script>
@@ -44,13 +63,12 @@ export default defineComponent({
     li {
       cursor: pointer;
       line-height: 30px;
+      font-size: 18px;
+      font-weight: 300;
+      color: --el-color-dark-context;
 
       &:hover {
-        color: #0072F5;
-      }
-
-      &::selection {
-        color: #0072F5;
+        color: #409eff;
       }
     }
   }
