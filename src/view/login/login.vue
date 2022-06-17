@@ -1,5 +1,5 @@
 <template>
-  <div class="backgorund">
+  <div class="backgorund" style="background-image: url('/image/login/login_background.png')">
     <div class="card" shadow="never">
       <div class="title">Welcome To WebSite</div>
       <el-form ref="form" class="form" :model="formData" :rules="loginRules">
@@ -69,7 +69,7 @@ export default defineComponent({
 
 <style lang="less">
 .backgorund {
-  background-image: url('/image/login/login_background.png');
+  // background-image: url('/image/login/login_background.png');
   width: 100%;
   min-height: 100vh;
   height: 100%;
