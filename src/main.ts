@@ -6,7 +6,7 @@ import Particles from 'particles.vue3';
 import 'element-plus/dist/index.css';
 import './index.css';
 import 'element-plus/theme-chalk/dark/css-vars.css';
-
+import '@wangeditor/editor/dist/css/style.css'
 /**
  * //挂载全局 app.config.globalProperties.$ELEMENT = option
  * import { getCurrentInstance} from 'vue';

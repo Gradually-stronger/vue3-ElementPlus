@@ -1,16 +1,20 @@
 <template>
-  <el-menu
-    :default-active="activeIndex"
-    class=""
-    mode="horizontal"
-    :ellipsis="false"
-  >
-    <el-menu-item index="1">
-      <router-link to="/home">Home</router-link>
-    </el-menu-item>
-    <el-menu-item index="2">
-      <router-link to="/about">About</router-link>
-    </el-menu-item>
+  <el-menu :default-active="activeIndex" class="" mode="horizontal" :ellipsis="false">
+    <router-link to="/home">
+      <el-menu-item index="1">
+        Home
+      </el-menu-item>
+    </router-link>
+    <router-link to="/admin">
+      <el-menu-item index="2">
+        Administration
+      </el-menu-item>
+    </router-link>
+    <router-link to="/about">
+      <el-menu-item index="3">
+        About
+      </el-menu-item>
+    </router-link>
   </el-menu>
 </template>
 
@@ -34,6 +38,7 @@ export default defineComponent({
 <style lang="less" scoped>
 .el-menu {
   border: none;
+
   .el-menu-item {
     border: none;
   }

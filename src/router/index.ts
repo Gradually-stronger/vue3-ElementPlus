@@ -26,14 +26,14 @@ const routes: Array<RouteRecordRaw> = [
           import(/* webpackChunkName: "introduce" */ '../view/home/index.vue'),
       },
       {
-        path: 'workspace',
-        name: 'workspace',
+        path: 'admin',
+        name: 'admin',
         // meta: {
         //     isLogin: true // 添加该字段，表示进入这个路由是需要登录的
         // },
         component: () =>
           import(
-            /* webpackChunkName: "introduce" */ '../view/workspace/index.vue'
+            /* webpackChunkName: "introduce" */ '../view/admin/index.vue'
           ),
       },
       {

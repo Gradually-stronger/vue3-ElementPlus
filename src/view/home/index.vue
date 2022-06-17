@@ -1,5 +1,5 @@
 <template>
-  <div class="containers">
+  <div class="containers auto-width">
     <el-backtop target=".containers"></el-backtop>
     <ul class="menu" v-show="isMenu">
       <li>WorkSpace</li>
@@ -30,14 +30,13 @@ export default defineComponent({
         if (!isMenu.value) {
           isMenu.value = true;
         }
-        
-        if(window.scrollY===0&&isMenu.value){
+
+        if (window.scrollY === 0 && isMenu.value) {
           isMenu.value = false;
         }
       });
 
     })
-          console.log(isMenu.value);
 
     return {
       isMenu
@@ -48,9 +47,6 @@ export default defineComponent({
 
 <style scoped lang="less">
 .containers {
-  width: 62.5%;
-  margin: 0 auto;
-  height: 100%;
 
   .menu {
     width: 100px;

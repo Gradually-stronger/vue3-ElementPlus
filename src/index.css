@@ -1,8 +1,8 @@
-#app{
+#app {
   margin: 0;
   padding: 0;
   height: 100%;
-  --el-color-dark-context:rgb(0,0,0);
+  --el-color-dark-context: rgb(0, 0, 0);
 }
 
 body {
@@ -13,6 +13,13 @@ body {
 p {
   margin: 0;
 }
+
 html.dark {
-  --el-color-dark-context:rgb(255,255,255);
+  --el-color-dark-context: rgb(255, 255, 255);
+}
+
+.auto-width {
+  width: 62.5%;
+  margin: 0 auto;
+  height: 100%;
 }
