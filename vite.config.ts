@@ -16,6 +16,9 @@ export default defineConfig({
     }),
   ],
   base: './', //打包路径
+  build: {
+    sourcemap: true
+  },
   resolve: {
     alias: {
       '@': '/src/', //设置别名
