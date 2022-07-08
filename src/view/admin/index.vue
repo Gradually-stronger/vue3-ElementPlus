@@ -5,6 +5,10 @@
       <Editor style="height: 500px; overflow-y: hidden;" v-model="valueHtml" :defaultConfig="editorConfig" :mode="mode"
         @onCreated="handleCreated" />
     </div>
+    <div class="save">
+      <el-button type="default">取消</el-button>
+      <el-button type="primary">保存</el-button>
+    </div>
   </div>
 </template>
 
@@ -12,7 +16,7 @@
 <script lang="ts">
 import { defineComponent, onBeforeUnmount, ref, shallowRef, onMounted } from 'vue';
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
-import {IDomEditor} from '@wangeditor/core/dist/core/src/editor/interface'
+import { IDomEditor } from '@wangeditor/core';
 
 export default defineComponent({
   components: { Editor, Toolbar },
@@ -54,4 +58,10 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
+.save {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns:1fr 1fr;
+   grid-column-gap: 90px;
+}
 </style>
