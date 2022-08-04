@@ -1,66 +1,28 @@
 import axios from 'axios';
 import { ElNotification } from 'element-plus';
-import { AxiosRequestConfig, Method } from 'axios';
 
 interface Paramter {
   [props: string]: string | boolean | number | object | undefined | null;
 }
 
-// 定义接口
-interface PendingType {
-  url?: string;
-  method?: Method;
-  params: Paramter;
-  data: Paramter;
-  cancel: (context: string) => void;
-}
-
-const pending: Array<PendingType> = [];
 // 创建axios实例
 const request = axios.create({
+  headers: {
+    "Content-Type": 'application/json'
+  },
   // baseURL: process.env.BASE_URL,
   timeout: 30000, // 请求超时时间
-  // `transformRequest` 允许在向服务器发送前，修改请求数据
-  transformRequest: [
-    function (data) {
-      // 对 data 进行任意转换处理
-      return data;
-    },
-  ],
-  // `transformResponse` 在传递给 then/catch 前，允许修改响应数据
-  transformResponse: [
-    function (data) {
-      // 对 data 进行任意转换处理
-      return JSON.parse(data);
-    },
-  ],
+  // proxy:{
+  //   port:7001,
+  //   host:'127.0.01'
+
+  // }
 });
 
-// 移除重复请求
-const removePending = (config: AxiosRequestConfig) => {
-  for (const key in pending) {
-    const item: number = +key;
-    const list: PendingType = pending[key];
-    // 当前请求在数组中存在时执行函数体
-    if (
-      list.url === config.url &&
-      list.method === config.method &&
-      JSON.stringify(list.params) === JSON.stringify(config.params) &&
-      JSON.stringify(list.data) === JSON.stringify(config.data)
-    ) {
-      // 执行取消操作
-      list.cancel('操作太频繁，请稍后再试');
-      // 从数组中移除记录
-      pending.splice(item, 1);
-    }
-  }
-};
+
 
 request.interceptors.request.use(
   (config) => {
-    console.log(request);
-
-    removePending(config);
     return config;
   },
   (error) => {
@@ -70,7 +32,6 @@ request.interceptors.request.use(
 
 request.interceptors.response.use(
   (config) => {
-    removePending(config.config);
     const { status } = config;
     if (status === 200) {
       return config.data;
@@ -88,20 +49,20 @@ request.interceptors.response.use(
 
     // 根据返回的http状态码做不同的处理
     switch (response?.status) {
-    case 401:
-      // token失效
-      break;
-    case 403:
-      // 没有权限
-      break;
-    case 500:
-      // 服务端错误
-      break;
-    case 503:
-      // 服务端错误
-      break;
-    default:
-      break;
+      case 401:
+        // token失效
+        break;
+      case 403:
+        // 没有权限
+        break;
+      case 500:
+        // 服务端错误
+        break;
+      case 503:
+        // 服务端错误
+        break;
+      default:
+        break;
     }
 
     // 超时重新请求

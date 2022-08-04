@@ -18,9 +18,9 @@ export default defineConfig({
   base: './', //打包路径
   build: {
     sourcemap: true,
-    
+
   },
-  publicDir:'./public',
+  publicDir: './public',
   resolve: {
     alias: {
       '@': '/src/', //设置别名
@@ -31,7 +31,11 @@ export default defineConfig({
     open: true,
     proxy: {
       // 选项写法
-      '/api': 'http://39.99.234.158:8989', //代理网址
+      '/api':{
+        target:"http://127.0.0.1:7001",
+        ws: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
     },
     cors: true,
   },

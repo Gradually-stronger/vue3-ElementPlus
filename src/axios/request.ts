@@ -1,3 +1,11 @@
 import request from './index';
 
-console.log(request);
+
+export const createPosts = (data: any) => {
+console.log(data);
+    return request({
+        url: 'api/posts',
+        method: "POST",
+        data
+    })
+}
