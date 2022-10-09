@@ -14,12 +14,15 @@ export function formValidation() {
   });
 
   const router = useRouter();
+
+  const submit = (evt: any) => {
+    if (evt.keyCode === 13 || evt.code == 'Enter') {
+      logins();
+    }
+  }
+
   onMounted(() => {
-    window.addEventListener('keydown', (evt) => {
-      if (evt.keyCode === 13 || evt.code == 'Enter') {
-        logins();
-      }
-    });
+    window.addEventListener('keydown', submit);
 
     const rememberMe = computed(() => store.state.login.loginStatus);
     formData.rememberMe = rememberMe.value;
@@ -28,12 +31,10 @@ export function formValidation() {
   onUnmounted(() => {
     window.removeEventListener(
       'keydown',
-      () => {
-        console.log('清除按键事件监听');
-      },
-      true,
+      submit,
     );
   });
+
   const logins = (): void => {
     form.value.validate((valid: any) => {
       if (valid) {

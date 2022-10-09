@@ -18,28 +18,40 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, toRef, reactive, ref } from 'vue';
+import { getAll } from '@/axios/request';
+import { defineComponent, onMounted, toRef, reactive, ref, onUnmounted } from 'vue';
 
 export default defineComponent({
   setup() {
     let isMenu = ref(false);
+    const remove = () => {
+      if (!isMenu.value) {
+        isMenu.value = true;
+      }
+
+      if (window.scrollY === 0 && isMenu.value) {
+        isMenu.value = false;
+      }
+    }
 
     onMounted(() => {
-
-      window.addEventListener('scroll', () => {
-        if (!isMenu.value) {
-          isMenu.value = true;
-        }
-
-        if (window.scrollY === 0 && isMenu.value) {
-          isMenu.value = false;
-        }
-      });
-
+      getAll({ limit: 1, offset: 1 })
+      window.addEventListener('scroll', remove);
     })
 
+
+    onUnmounted(() => {
+      window.removeEventListener(
+        'scroll',
+        remove,
+      );
+    });
+
+
     return {
-      isMenu
+      isMenu,
+      onUnmounted,
+      onMounted
     };
   },
 });

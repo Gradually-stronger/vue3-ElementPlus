@@ -7,7 +7,7 @@
       <div style="border: 1px solid #ccc">
         <Toolbar style="border-bottom: 1px solid #ccc" :editor="editorRef" :defaultConfig="toolbarConfig"
           :mode="mode" />
-        <Editor style="height: 500px; overflow-y: hidden;" v-model="form.content" :defaultConfig="editorConfig"
+        <Editor style="height: 500px; overflow-y: hidden" v-model="form.content" :defaultConfig="editorConfig"
           :mode="mode" @onCreated="handleCreated" />
       </div>
       <div class="save">
@@ -15,55 +15,64 @@
         <el-button @click="Submit" type="primary">保存</el-button>
       </div>
     </el-form>
-
   </div>
-
 </template>
 
-
 <script lang="ts">
-import { defineComponent, onBeforeUnmount, ref, shallowRef, onMounted, reactive } from 'vue';
-import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
+import {
+  defineComponent,
+  onBeforeUnmount,
+  shallowRef,
+  onMounted,
+  reactive,
+} from 'vue';
+import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
 import { IDomEditor } from '@wangeditor/core';
-import { createPosts } from '@/axios/request'
+import { ElMessage } from 'element-plus';
+import { createPosts } from '@/axios/request';
 export default defineComponent({
   components: { Editor, Toolbar },
   setup() {
-
     // 编辑器实例，必须用 shallowRef
-    const editorRef = shallowRef()
+    const editorRef = shallowRef();
 
     // 模拟 ajax 异步获取内容
-    onMounted(() => {
-    })
+    onMounted(() => { });
 
-    const toolbarConfig = {}
-    const editorConfig = { placeholder: '请输入内容...' }
+    const toolbarConfig = {};
+    const editorConfig = { placeholder: '请输入内容...' };
 
     // 组件销毁时，也及时销毁编辑器
     onBeforeUnmount(() => {
-      const editor = editorRef.value
-      if (editor == null) return
-      editor.destroy()
-    })
+      const editor = editorRef.value;
+      if (editor == null) return;
+      editor.destroy();
+    });
 
     const handleCreated = (editor: IDomEditor) => {
-      editorRef.value = editor // 记录 editor 实例，重要！
-    }
+      editorRef.value = editor; // 记录 editor 实例，重要！
+    };
 
     const form = reactive({
       title: '',
-      content: ""
-    })
+      content: '',
+    });
 
     const Submit = async () => {
-
-      createPosts(JSON.parse(JSON.stringify(form))).then(res => {
-        console.log(res);
-
-      })
-
-    }
+      createPosts(JSON.parse(JSON.stringify(form))).then((res: any) => {
+        if (res && res.code < 300) {
+          ElMessage.success({
+            message: '保存成功',
+            type: 'success',
+          });
+          return;
+        }
+        ElMessage.success({
+            message: res.message,
+            type: 'error',
+          });
+      });
+    };
     return {
       form,
       editorRef,
@@ -71,8 +80,8 @@ export default defineComponent({
       toolbarConfig,
       editorConfig,
       handleCreated,
-      Submit
-    }
+      Submit,
+    };
   },
 });
 </script>
