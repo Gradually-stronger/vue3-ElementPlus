@@ -29,9 +29,11 @@
   "dependencies": {
     "@wangeditor/editor": "^5.1.1",
     "@wangeditor/editor-for-vue": "^5.1.11",
+    "minio": "^7.0.32",
     "vue": "^3.2.25"
   },
   "devDependencies": {
+    "@types/node": "^20.6.0",
     "@types/qs": "^6.9.7",
     "@vitejs/plugin-vue": "^2.3.3",
     "axios": "^0.27.2",

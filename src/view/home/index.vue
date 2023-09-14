@@ -10,20 +10,60 @@
     <div class="slogn">
       <p>
         努力一直是平凡的人活着的勇气,如果你不努力,那你只是一具尸体. <br />
-        Efforts have always been the courage of ordinary people to live. If you don't work hard, you are just a corpse.
+        Efforts have always been the courage of ordinary people to live. If you
+        don't work hard, you are just a corpse.
       </p>
       <el-image class="slogn-logo" src="/image/teaching.png"></el-image>
+    </div>
+    <div class="infinite-list-wrapper" style="overflow: auto">
+      <div v-for="item in datalist" :key="item.id" class="list">
+        <div class="item" @click="detail(item)">
+          <div class="title">{{ item.title || '没有标题' }}</div>
+          <div class="time">
+            {{
+              item.created_at &&
+              dayjs(item.created_at).format('YYYY-MM-DD HH:mm')
+            }}
+          </div>
+        </div>
+        <div class="content">
+          {{ item.intro }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { getAll } from '@/axios/request';
-import { defineComponent, onMounted, toRef, reactive, ref, onUnmounted } from 'vue';
+import { getAll, getDetail } from '@/axios/request';
+import { homelist } from '@/interpreter/home';
+import { debounce } from '@/until/modes';
+import { dayjs } from 'element-plus';
+import { useRouter } from 'vue-router';
+import {
+  defineComponent,
+  onMounted,
+  toRef,
+  reactive,
+  ref,
+  onUnmounted,
+  computed,
+  toRefs,
+} from 'vue';
 
 export default defineComponent({
   setup() {
     let isMenu = ref(false);
+    let isData = ref(false);
+    let pagination = reactive({
+      limit: 6,
+      offset: 0,
+    });
+    const router = useRouter();
+    const loading = ref(false);
+    const noMore = computed(() => isData.value);
+    const disabled = computed(() => loading.value || noMore.value);
+    let datalist = ref<homelist[]>([]);
     const remove = () => {
       if (!isMenu.value) {
         isMenu.value = true;
@@ -32,26 +72,63 @@ export default defineComponent({
       if (window.scrollY === 0 && isMenu.value) {
         isMenu.value = false;
       }
-    }
+    };
 
     onMounted(() => {
-      getAll({ limit: 1, offset: 1 })
+      getlist();
       window.addEventListener('scroll', remove);
-    })
-
-
-    onUnmounted(() => {
-      window.removeEventListener(
-        'scroll',
-        remove,
-      );
     });
 
+    onUnmounted(() => {
+      window.removeEventListener('scroll', remove);
+    });
+
+    const handlePagination = () => {
+      pagination = {
+        limit: pagination.limit,
+        offset: pagination.limit + pagination.offset,
+      };
+    };
+
+    const getlist = debounce(() => {
+      loading.value = true;
+
+      getAll(pagination).then((res: any) => {
+        const { list, total_count } = res;
+        loading.value = false;
+        if (res.code > 300) {
+        } else {
+          if (total_count === 0) {
+            isData.value = true;
+            return;
+          }
+          datalist.value = datalist.value.concat(list);
+          handlePagination();
+        }
+      });
+    }, 1000);
+
+    const detail = (item: homelist) => {
+      const { record_id } = item;
+      router.push({
+        path: '/admin',
+        query: {
+          id: record_id,
+        },
+      });
+    };
 
     return {
       isMenu,
       onUnmounted,
-      onMounted
+      onMounted,
+      loading,
+      noMore,
+      disabled,
+      getlist,
+      datalist,
+      dayjs,
+      detail,
     };
   },
 });
@@ -59,7 +136,6 @@ export default defineComponent({
 
 <style scoped lang="less">
 .containers {
-
   .menu {
     width: 100px;
     list-style: none;
@@ -81,6 +157,25 @@ export default defineComponent({
     }
   }
 
+  .infinite-list-wrapper {
+    height: 200px;
+    text-align: center;
+    .list {
+      .item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        .title {
+        }
+        .time {
+        }
+      }
+      .content {
+      }
+    }
+  }
+
   .slogn {
     font-size: 14px;
     color: --el-color-dark-context;
@@ -89,7 +184,7 @@ export default defineComponent({
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-image: linear-gradient(45deg, #0072F5 -20%, #FF4ECD 50%);
+    background-image: linear-gradient(45deg, #0072f5 -20%, #ff4ecd 50%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 
