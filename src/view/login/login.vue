@@ -67,7 +67,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .backgorund {
   // background-image: url('/image/login/login_background.png');
   width: 100%;
