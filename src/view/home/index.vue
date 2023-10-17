@@ -16,19 +16,24 @@
       <el-image class="slogn-logo" src="/image/teaching.png"></el-image>
     </div>
     <div class="infinite-list-wrapper" style="overflow: auto">
-      <div v-for="item in datalist" :key="item.id" class="list">
-        <div class="item" @click="detail(item)">
-          <div class="title">{{ item.title || '没有标题' }}</div>
-          <div class="time">
-            {{
-              item.created_at &&
-              dayjs(item.created_at).format('YYYY-MM-DD HH:mm')
-            }}
+      <div v-infinite-scroll="getlist" class="list" :infinite-scroll-disabled="disabled">
+        <div v-for="item in datalist" :key="item.id" class="list">
+          <div class="item" @click="detail(item)">
+            <div class="title">{{ item.title || '没有标题' }}</div>
+            <div class="time">
+              {{
+                item.created_at &&
+                dayjs(item.created_at).format('YYYY-MM-DD HH:mm')
+              }}
+            </div>
+          </div>
+          <div class="content">
+            {{ item.intro }}
           </div>
         </div>
-        <div class="content">
-          {{ item.intro }}
-        </div>
+        <p style="height: 50px;
+        line-height: 50px;" v-if="loading">Loading...</p>
+        <p v-if="noMore">No more</p>
       </div>
     </div>
   </div>
@@ -94,7 +99,9 @@ export default defineComponent({
 
       getAll(pagination).then((res: any) => {
         const { list, total_count } = res;
-        loading.value = false;
+        setTimeout(() => {
+          loading.value = false;
+        }, 1000)
         if (res.code > 300) {
         } else {
           if (total_count === 0) {
@@ -110,7 +117,7 @@ export default defineComponent({
     const detail = (item: homelist) => {
       const { record_id } = item;
       router.push({
-        path: '/admin',
+        path: '/article/detail',
         query: {
           id: record_id,
         },
@@ -157,21 +164,24 @@ export default defineComponent({
   }
 
   .infinite-list-wrapper {
-    height: 200px;
+    height: 300px;
     text-align: center;
+
     .list {
+      margin: 10px 0;
+
       .item {
         display: flex;
         align-items: center;
         justify-content: space-between;
         cursor: pointer;
-        .title {
-        }
-        .time {
-        }
+
+        .title {}
+
+        .time {}
       }
-      .content {
-      }
+
+      .content {}
     }
   }
 

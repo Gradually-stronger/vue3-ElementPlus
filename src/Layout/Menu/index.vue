@@ -1,7 +1,7 @@
 <template>
-  <el-menu :default-active="activeIndex" class="" mode="horizontal" :ellipsis="false">
+  <el-menu :default-active="defaultActiveIndex" :activeIndex="activeIndex" class="" mode="horizontal" :ellipsis="false">
     <router-link to="/home">
-      <el-menu-item index="1">
+      <el-menu-item @click="changeMenu" index="1">
         Home
       </el-menu-item>
     </router-link>
@@ -27,10 +27,17 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const titleShow = computed(() => store.state.Layout.titleShow);
+    const defaultActiveIndex = ref('1');
     const activeIndex = ref('1');
+    const changeMenu = ({ index }: { index: string }) => {
+
+      activeIndex.value = index;
+    };
     return {
       titleShow,
       activeIndex,
+      changeMenu,
+      defaultActiveIndex
     };
   },
 });

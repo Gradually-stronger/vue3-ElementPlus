@@ -32,9 +32,7 @@ const routes: Array<RouteRecordRaw> = [
         //     isLogin: true // 添加该字段，表示进入这个路由是需要登录的
         // },
         component: () =>
-          import(
-            /* webpackChunkName: "introduce" */ '../view/admin/index.vue'
-          ),
+          import(/* webpackChunkName: "introduce" */ '../view/admin/index.vue'),
       },
       {
         path: 'about',
@@ -44,6 +42,14 @@ const routes: Array<RouteRecordRaw> = [
         // },
         component: () =>
           import(/* webpackChunkName: "introduce" */ '../view/about/index.vue'),
+      },
+      {
+        path: '/article/detail',
+        name: 'articleDetail',
+        component: () =>
+          import(
+            /* webpackChunkName: "introduce" */ '../view/article/detail.vue'
+          ),
       },
     ],
   },
