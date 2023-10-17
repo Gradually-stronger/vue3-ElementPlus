@@ -66,6 +66,7 @@ export default defineComponent({
 
 <style lang="less">
 .common-layout {
+  height: 100vh;
   a {
     text-decoration: none;
   }

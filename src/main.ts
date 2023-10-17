@@ -15,3 +15,4 @@ import Particles from 'particles.vue3';
  */
 
 createApp(App).use(router).use(store).use(Particles).mount('#app');
+ 
