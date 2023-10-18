@@ -16,7 +16,8 @@
       <el-image class="slogn-logo" src="/image/teaching.png"></el-image>
     </div>
     <div class="infinite-list-wrapper" style="overflow: auto">
-      <div v-infinite-scroll="getlist" class="list" :infinite-scroll-disabled="disabled">
+      <div v-infinite-scroll="getlist" class="list" :infinite-scroll-immediate="false"
+        :infinite-scroll-disabled="disabled">
         <div v-for="item in datalist" :key="item.id" class="list">
           <div class="item" @click="detail(item)">
             <div class="title">{{ item.title || '没有标题' }}</div>
@@ -31,16 +32,15 @@
             {{ item.intro }}
           </div>
         </div>
-        <p style="height: 50px;
-        line-height: 50px;" v-if="loading">Loading...</p>
-        <p v-if="noMore">No more</p>
       </div>
+      <p style="height: 50px;line-height: 50px;" v-if="loading">Loading...</p>
+      <p v-if="noMore">No more</p>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { getAll, getDetail } from '@/axios/request';
+import { getAll } from '@/axios/request';
 import { homelist } from '@/interpreter/home';
 import { debounce } from '@/until/modes';
 import { dayjs } from 'element-plus';
@@ -52,7 +52,6 @@ import {
   ref,
   onUnmounted,
   computed,
-  toRefs,
 } from 'vue';
 
 export default defineComponent({
@@ -60,13 +59,13 @@ export default defineComponent({
     let isMenu = ref(false);
     let isData = ref(false);
     let pagination = reactive({
-      limit: 6,
+      limit: 20,
       offset: 0,
     });
     const router = useRouter();
     const loading = ref(false);
     const noMore = computed(() => isData.value);
-    const disabled = computed(() => loading.value || noMore.value);
+    const disabled = computed(() => loading.value || noMore.value)
     let datalist = ref<homelist[]>([]);
     const remove = () => {
       if (!isMenu.value) {
@@ -99,14 +98,15 @@ export default defineComponent({
 
       getAll(pagination).then((res: any) => {
         const { list, total_count } = res;
-        setTimeout(() => {
-          loading.value = false;
-        }, 1000)
+        loading.value = false;
         if (res.code > 300) {
         } else {
           if (total_count === 0) {
             isData.value = true;
             return;
+          }
+          if (total_count < pagination.limit) {
+            isData.value = true;
           }
           datalist.value = datalist.value.concat(list);
           handlePagination();
@@ -130,11 +130,11 @@ export default defineComponent({
       onMounted,
       loading,
       noMore,
-      disabled,
       getlist,
       datalist,
       dayjs,
       detail,
+      disabled,
     };
   },
 });
