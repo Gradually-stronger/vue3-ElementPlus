@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { ElMessage } from 'element-plus';
+import QueryString from 'qs';
 
 // 创建axios实例
 const instance = axios.create({
@@ -9,7 +10,7 @@ const instance = axios.create({
   transformRequest: [
     function (data) {
       // 对 data 进行任意转换处理
-      return data;
+      return QueryString.stringify(data);
     },
   ],
   // `transformResponse` 在传递给 then/catch 前，允许修改响应数据
@@ -25,17 +26,34 @@ instance.interceptors.request.use((config) => {
   return config;
 });
 
-instance.interceptors.response.use((config) => {
-  const { status } = config;
-  if (status === 200) {
-    return config.data;
-  }
-  if (status >= 500) {
+instance.interceptors.response.use(
+  (config) => {
+    const { status } = config;
+    if (status === 200) {
+      return config.data;
+    }
+    if (status >= 500) {
+      ElMessage.error({
+        type: 'error',
+        message: '服务器错误',
+      });
+    }
+    if (status >= 300) {
+      ElMessage.error({
+        type: 'error',
+        message: '请求错误',
+      });
+    }
+  },
+  (error) => {
+    const { response } = error;
+    const { data } = response;
     ElMessage.error({
       type: 'error',
-      message: '服务器错误',
+      message: data.message,
     });
-  }
-});
+    return Promise.reject(error);
+  },
+);
 
 export default instance;

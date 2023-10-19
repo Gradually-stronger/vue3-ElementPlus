@@ -46,8 +46,6 @@
       </el-form>
     </div>
   </div>
-
-  <!-- <particle /> -->
 </template>
 
 <script lang="ts">

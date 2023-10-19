@@ -8,7 +8,9 @@ export default {
     <State>{
       loginStatus: false,
     },
-  actions: {},
+  actions: {
+    login({ dispatch, commit }: any, { formData }: { formData: any }) {},
+  },
   mutations: {
     remeberMe(state: State, { loginStatus }: { loginStatus: boolean }) {
       state.loginStatus = loginStatus;
