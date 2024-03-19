@@ -1,4 +1,4 @@
-import request from '../until/request';
+import request from '@/axios/index';
 
 // const BaseUrl = "http://127.0.0.1:8819/api/v1";
 const BaseUrl = '/api';

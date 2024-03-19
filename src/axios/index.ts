@@ -1,99 +1,64 @@
 import axios from 'axios';
-import { ElNotification } from 'element-plus';
-
-interface Paramter {
-  [props: string]: string | boolean | number | object | undefined | null;
-}
+import { ElMessage } from 'element-plus';
+import QueryString from 'qs';
 
 // 创建axios实例
-const request = axios.create({
-  headers: {
-    "Content-Type": 'application/json'
-  },
+const instance = axios.create({
   // baseURL: process.env.BASE_URL,
   timeout: 30000, // 请求超时时间
-  // proxy:{
-  //   port:7001,
-  //   host:'127.0.01'
-
-  // }
+  // `transformRequest` 允许在向服务器发送前，修改请求数据
+  transformRequest: [
+    function (data) {
+      // 对 data 进行任意转换处理
+      return QueryString.stringify(data);
+    },
+  ],
+  // `transformResponse` 在传递给 then/catch 前，允许修改响应数据
+  transformResponse: [
+    function (data) {
+      // 对 data 进行任意转换处理
+      return JSON.parse(data);
+    },
+  ],
 });
 
+instance.interceptors.request.use((config) => {
+  return config;
+});
 
+// 更新 Axios 实例的默认配置
+export const updateAxiosInstance = (token: string) => {
+  instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+};
 
-request.interceptors.request.use(
-  (config) => {
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  },
-);
-
-request.interceptors.response.use(
+instance.interceptors.response.use(
   (config) => {
     const { status } = config;
     if (status === 200) {
       return config.data;
     }
     if (status >= 500) {
-      ElNotification({
+      ElMessage.error({
         type: 'error',
-        message: '服务器发生错误',
-        position: 'top-right',
+        message: '服务器错误',
+      });
+    }
+    if (status >= 300) {
+      ElMessage.error({
+        type: 'error',
+        message: '请求错误',
       });
     }
   },
   (error) => {
-    const response = error.response;
-
-    // 根据返回的http状态码做不同的处理
-    switch (response?.status) {
-      case 401:
-        // token失效
-        break;
-      case 403:
-        // 没有权限
-        break;
-      case 500:
-        // 服务端错误
-        break;
-      case 503:
-        // 服务端错误
-        break;
-      default:
-        break;
-    }
-
-    // 超时重新请求
-    const config = error.config;
-    // 全局的请求次数,请求的间隙
-    const [RETRY_COUNT, RETRY_DELAY] = [3, 1000];
-
-    if (config && RETRY_COUNT) {
-      // 设置用于跟踪重试计数的变量
-      config.__retryCount = config.__retryCount || 0;
-      // 检查是否已经把重试的总数用完
-      if (config.__retryCount >= RETRY_COUNT) {
-        return Promise.reject(response || { message: error.message });
-      }
-      // 增加重试计数
-      config.__retryCount++;
-      // 创造新的Promise来处理指数后退
-      const backoff = new Promise((resolve) => {
-        setTimeout(() => {
-          resolve('');
-        }, RETRY_DELAY || 1);
-      });
-      // instance重试请求的Promise
-      return backoff.then(() => {
-        return config(config);
-      });
-    }
-
-    // eslint-disable-next-line
-    return Promise.reject(response || { message: error.message });
+    const { response } = error;
+    const { data } = response;
+    ElMessage.error({
+      type: 'error',
+      message: data.message,
+    });
+    return Promise.reject(error);
   },
 );
 
-export default request;
+export default instance;
