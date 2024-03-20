@@ -23,13 +23,13 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token') || '';
+  if (token && config.headers) {
+    config.headers.Authorization = `${token}`;
+  }
+
   return config;
 });
-
-// 更新 Axios 实例的默认配置
-export const updateAxiosInstance = (token: string) => {
-  instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-};
 
 instance.interceptors.response.use(
   (config) => {

@@ -5,7 +5,6 @@ import { useStore } from 'vuex';
 import { md5 } from 'js-md5';
 import login from '@/services/login';
 import { useRouter } from 'vue-router';
-import { updateAxiosInstance } from '@/axios/index';
 
 export function formValidation() {
   const form = ref();
@@ -40,7 +39,7 @@ export function formValidation() {
         };
         login.login(data).then((res: any) => {
           if (res && res.code === 200) {
-            updateAxiosInstance(res.data.token);
+            localStorage.setItem('token', res.data.token);
             if (formData.rememberMe) {
               store.commit('login/remeberMe', {
                 loginStatus: true,
